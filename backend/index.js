@@ -1,14 +1,15 @@
 require('dotenv').config()
+const DatabaseSynchronization = require('./database/DatabaseSynchronization')
 const express = require('express')
 const consign = require('consign')
 const app = express()
 const port = process.env.API_PORT
 
+DatabaseSynchronization()
 consign()
     .then('/config/middlewares.js')
     .then('routes.js')
     .into(app)
-
 
 
 app.listen(port, () => {
