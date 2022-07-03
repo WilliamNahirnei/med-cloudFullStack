@@ -1,5 +1,5 @@
 const database = require('./database.js')
-const Patient = require ('../api/Model/Patient.js')
+const Patient = require ('../api/Patient/Patient.js')
 
 module.exports = async function SynchronizeDatabase() {
     try {
