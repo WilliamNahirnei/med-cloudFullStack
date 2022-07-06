@@ -8,7 +8,21 @@ module.exports = app => {
     
     app.route('/patient')
         .get((request, response) => {
-            console.log(PatientController)
             PatientController.index(request, response)
+        })
+        .post((request, response) => {
+            PatientController.store(request, response)
+        })
+    app.route('/patient/:idPatient')
+        .get((request, response) => {
+            PatientController.show(request, response)
+        })
+    app.route('/patient/:idPatient')
+        .put((request, response) => {
+            PatientController.update(request, response)
+        })
+    app.route('/patient/:idPatient/delete')
+        .delete((request, response) => {
+            PatientController.delete(request, response)
         })
 }

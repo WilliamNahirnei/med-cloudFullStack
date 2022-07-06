@@ -15,7 +15,7 @@ const Patient = database.define('Patient', {
         unique: false
     },
     PatientBirthDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
         unique: false
     },
