@@ -44,6 +44,36 @@ exports.update = async function (request, response) {
     return await PatientRepository.update(patient, preparedData)
 }
 
+exports.deactivePatient = async function (request, response) {
+    const requestParams = RequestUtils.getRequestParams(request)
+
+    const patient = await PatientRepository.show(requestParams.idPatient)
+
+    if (!havePatient(patient)) {
+        response.status(404).end()
+        return
+    }
+
+    const preparedData = Preparer.prepareToDeactivePatient()
+
+    return await PatientRepository.update(patient, preparedData)
+}
+
+exports.activePatient = async function (request, response) {
+    const requestParams = RequestUtils.getRequestParams(request)
+    
+    const patient = await PatientRepository.show(requestParams.idPatient)
+
+    if (!havePatient(patient)) {
+        response.status(404).end()
+        return
+    }
+
+    const preparedData = Preparer.prepareToActivePatient()
+
+    return await PatientRepository.update(patient, preparedData)
+}
+
 exports.delete = async function (request, response) {
     const requestParams = RequestUtils.getRequestParams(request)
     const patient = await PatientRepository.show(requestParams.idPatient)

@@ -25,4 +25,12 @@ module.exports = app => {
         .delete((request, response) => {
             PatientController.delete(request, response)
         })
+    app.route('/patient/:idPatient/deactive')
+        .delete((request, response) => {
+            PatientController.deactive(request, response)
+        })
+    app.route('/patient/:idPatient/active')
+        .put((request, response) => {
+            PatientController.active(request, response)
+        })
 }

@@ -20,6 +20,16 @@ exports.update = async function (request, response) {
     response.send(patient)
 }
 
+exports.deactive = async function (request, response) {
+    const patient = await PatientSerivce.deactivePatient(request, response)
+    response.send(patient)
+}
+
+exports.active = async function (request, response) {
+    const patient = await PatientSerivce.activePatient(request, response)
+    response.send(patient)
+}
+
 exports.delete = async function (request, response) {
     const patient = await PatientSerivce.delete(request, response)
     response.send(patient)

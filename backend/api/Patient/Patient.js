@@ -28,6 +28,11 @@ const Patient = database.define('Patient', {
         type: Sequelize.STRING(50),
         allowNull: true,
         unique: true,
+    },
+    PatientStatus: {
+        type: Sequelize.ENUM('active', 'inactive'),
+        allowNull: false,
+        defaultValue: 'active'
     }
 })
  

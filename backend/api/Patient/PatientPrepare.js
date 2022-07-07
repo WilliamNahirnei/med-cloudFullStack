@@ -15,3 +15,15 @@ exports.prepareToUpdate = function (patient, data) {
         PatientEmail: data.email ? data.email : patient.PatientEmail,
     }
 }
+
+exports.prepareToDeactivePatient = function () {
+    return {
+        PatientStatus: 'inactive'
+    }
+}
+
+exports.prepareToActivePatient = function () {
+    return {
+        PatientStatus: 'active'
+    }
+}
