@@ -13,30 +13,29 @@ exports.show = async function (request, response) {
     const address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(address)) {
-        response.status(404).end()
+        response.status(404)
         return
     }
 
     return Formater.show(address)
 }
 
-exports.store = async function (request) {
+exports.store = async function (request, options = null) {
     const requestParams = RequestUtils.getRequestParams(request)
     const preparedData = Preparer.prepareToStore(requestParams)
 
-    const address = await AddressRepository.store(preparedData)
+    const address = await AddressRepository.store(preparedData, options)
 
     return address
 }
 
-exports.update = async function (request, response) {
+exports.update = async function (request, options = null) {
     const requestParams = RequestUtils.getRequestParams(request)
     
     const address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(address)) {
-        response.status(404).end()
-        return
+        return null
     }
 
     const preparedData = Preparer.prepareToUpdate(address, requestParams)
@@ -44,16 +43,15 @@ exports.update = async function (request, response) {
     return await AddressRepository.update(address, preparedData)
 }
 
-exports.delete = async function (request, response) {
+exports.delete = async function (request, options = null) {
     const requestParams = RequestUtils.getRequestParams(request)
     const Address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(Address)) {
-        response.status(404).end()
-        return
+        return null
     }
 
-    return await AddressRepository.delete(Address)
+    return await AddressRepository.delete(Address, options)
 }
 
 function haveAddress(Address) {

@@ -11,8 +11,12 @@ exports.show = async function (request, response) {
 }
 
 exports.store = async function (request, response) {
-    const patient = await PatientSerivce.store(request)
-    response.send(patient)
+    try{
+        const patient = await PatientSerivce.store(request)
+        response.send(patient)
+    } catch(e) {
+        response.status(500).send()
+    }
 }
 
 exports.update = async function (request, response) {

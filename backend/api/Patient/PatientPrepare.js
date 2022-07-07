@@ -4,6 +4,7 @@ exports.prepareToStore = function (data) {
         PatientBirthDate: data.birthDate,
         PatientCPF: data.CPF,
         PatientEmail: data.email,
+        address_id: data.idAddress,
     }
 }
 
