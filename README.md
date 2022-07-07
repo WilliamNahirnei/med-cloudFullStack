@@ -1,3 +1,6 @@
+#Melhorias
+  verificar o comportamento do node com o express, caso o node com o express crie processos ou subprocessos com memorias independentes a cada request que chega ao servidor, seria implementar um singleton de transactions, para evitar de ficar passando dados entre camadas e acessar somente no repository.
+
 # Development challenge
 
 ![logo medcloud-03 white copy](https://user-images.githubusercontent.com/46347123/158176045-de9fefb0-35e2-4515-83ff-c132608aa870.png)
