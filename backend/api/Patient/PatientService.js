@@ -36,7 +36,6 @@ exports.store = async function (request) {
 
         const patient = await PatientRepository.store(preparedData, {transaction})
         patient.address = address
-        console.log(patient)
 
         return patient
     })
@@ -49,8 +48,7 @@ exports.update = async function (request, response) {
     const patient = await PatientRepository.show(requestParams.idPatient)
 
     if (!havePatient(patient)) {
-        response.status(404).end()
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['PatientNotFound'], codeForRequest = 404)
     }
     request.body.idAddress = patient.address_id
     return await sequelize.transaction(async (transaction) => {
@@ -58,12 +56,8 @@ exports.update = async function (request, response) {
 
         const preparedData = Preparer.prepareToUpdate(patient, requestParams)
 
-        const addressUpdate = await AddressSerivce.update(request, options)
-
-        if (!addressUpdate) {
-            response.status(404).end()
-            return
-        }
+        const address = await AddressSerivce.update(request, options)
+        patient.address = address
 
         return await PatientRepository.update(patient, preparedData)
     })
@@ -75,8 +69,7 @@ exports.deactivePatient = async function (request, response) {
     const patient = await PatientRepository.show(requestParams.idPatient)
 
     if (!havePatient(patient)) {
-        response.status(404).end()
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['PatientNotFound'], codeForRequest = 404)
     }
     
     const preparedData = Preparer.prepareToDeactivePatient()
@@ -90,8 +83,7 @@ exports.activePatient = async function (request, response) {
     const patient = await PatientRepository.show(requestParams.idPatient)
 
     if (!havePatient(patient)) {
-        response.status(404).end()
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['PatientNotFound'], codeForRequest = 404)
     }
 
     const preparedData = Preparer.prepareToActivePatient()
@@ -104,8 +96,7 @@ exports.delete = async function (request, response) {
     const patient = await PatientRepository.show(requestParams.idPatient)
 
     if (!havePatient(patient)) {
-        response.status(404).end()
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['PatientNotFound'], codeForRequest = 404)
     }
 
     request.body.idAddress = patient.address_id
@@ -114,12 +105,7 @@ exports.delete = async function (request, response) {
         options = {transaction: transaction}
 
         const patientDelete = await PatientRepository.delete(patient)
-        const addressDelete = await AddressSerivce.delete(request, options)
-
-        if (!addressDelete) {
-            response.status(404).end()
-            return
-        }
+        await AddressSerivce.delete(request, options)
 
         return patientDelete
     })

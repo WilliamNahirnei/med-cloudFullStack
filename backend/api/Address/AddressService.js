@@ -13,8 +13,7 @@ exports.show = async function (request, response) {
     const address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(address)) {
-        response.status(404)
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['Address Not Found'], codeForRequest = 404)
     }
 
     return Formater.show(address)
@@ -35,7 +34,7 @@ exports.update = async function (request, options = null) {
     const address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(address)) {
-        return null
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['Address Not Found'], codeForRequest = 404)
     }
 
     const preparedData = Preparer.prepareToUpdate(address, requestParams)
@@ -48,7 +47,7 @@ exports.delete = async function (request, options = null) {
     const Address = await AddressRepository.show(requestParams.idAddress)
 
     if (!haveAddress(Address)) {
-        return null
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['Address Not Found'], codeForRequest = 404)
     }
 
     return await AddressRepository.delete(Address, options)
