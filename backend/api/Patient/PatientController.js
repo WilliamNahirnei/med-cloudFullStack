@@ -20,7 +20,7 @@ exports.show = async function (request, response) {
 exports.store = async function (request, response) {
     try{
         const patient = await PatientSerivce.store(request)
-        response.send(patient)
+        response.status(201).send(patient)
     } catch (error) {
         if (error?.codeForRequest)
             response.status(error.codeForRequest).send({error:error.type, messages:error.errorListMessage})

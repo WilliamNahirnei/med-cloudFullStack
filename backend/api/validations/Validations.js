@@ -2,6 +2,13 @@ const moment = require("moment")
 
 validations = {}
 
+exports.validateRequest = function (request, validationList) {
+    const errorList = await iterateAtributes(request,validationList)
+
+    if (errorList.length > 0)
+        throw new AcceptableExeption(true, 'Unprocessable Entity', errorList, codeForRequest = 422)
+}
+
 function iterateAtributes (request, atributeList) {
     const atributesWithErros = []
     atributeList.forEach(atribute => {
@@ -101,8 +108,6 @@ validations.min = function min (value, minValue) {
 
 
 validations.max = function max (value, maxValue) {
-    console.log("TESTE",isString(value))
-    console.log(typeof(value))
 
     if(isString(value))
         return maxString(value, maxValue)
@@ -126,7 +131,6 @@ function minNumber (value, minValueParam) {
 }
 
 function maxNumber (value, maxValueParam) {
-    console.log(maxValue)
     if (!maxValue(value, maxValueParam))
         return `deve ser no maximo ${maxValueParam}`
 }
@@ -207,5 +211,3 @@ function nullable (validationList) {
     const nullableIndex = validationList.indexOf('nullable')
     return nullableIndex
 }
-
-module.exports = iterateAtributes
