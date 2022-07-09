@@ -4,6 +4,7 @@ const Formater = require('../utils/Formaters')
 const Preparer = require('./PatientPrepare')
 const sequelize = require('../../database/database')
 const AddressSerivce = require('../Address/AddressService')
+const AcceptableExeption = require('../CustomExeptions/AccptableExeption')
 
 exports.index = async function (request) {
     const requestParams = RequestUtils.getRequestParams(request)
@@ -15,8 +16,7 @@ exports.show = async function (request, response) {
     const patient = await PatientRepository.show(requestParams.idPatient)
 
     if (!havePatient(patient)) {
-        response.status(404).end()
-        return
+        throw new AcceptableExeption(true,'NOT FOUND', errorListMessage = ['PatientNotFound'], codeForRequest = 404)
     }
 
     return Formater.show(patient)
