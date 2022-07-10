@@ -1,6 +1,6 @@
-const Sequelize = require('sequelize');
-const database = require('../../database/database.js');
-const Address = require('../Address/Address.js');
+const Sequelize = require('sequelize')
+const database = require('../../database/database.js')
+const Address = require('../Address/Address.js')
  
 const Patient = database.define('Patient', {
     idPatient: {
@@ -44,4 +44,4 @@ const Patient = database.define('Patient', {
     }
 })
 
-module.exports = Patient;
+module.exports = Patient

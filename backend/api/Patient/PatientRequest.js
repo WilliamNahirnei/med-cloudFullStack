@@ -5,7 +5,7 @@ exports.validateToStore = function () {
         {name: 'CPF', validations:'required|string|size:11'},
         {name: 'email', validations:'required|string|max:50|email'},
         {name: "number", validations:'required|string|max:6'},
-        {name: "observation", validations:'required|string|max:100'},
+        {name: "observation", validations:'string|max:100'},
         {name: "street", validations:'required|string|min:4|max:100'},
         {name: "neighborhood", validations:'required|string|min:4|max:100'},
         {name: "city", validations:'required|string|min:4|max:150'},

@@ -45,7 +45,7 @@ function iterateAtributes (request, atributeList) {
         }
         if (atributeHaveErrors(AtributeErrors[atributeName]))
             atributesWithErros.push(AtributeErrors)
-    });
+    })
     return atributesWithErros
 }
 

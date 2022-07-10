@@ -1,3 +1,4 @@
+const Address = require('../Address/Address')
 const Patient = require('./Patient')
 
 exports.index = async function () {
