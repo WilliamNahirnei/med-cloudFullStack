@@ -1,8 +1,10 @@
 const moment = require("moment")
+const AcceptableExeption = require("../CustomExeptions/AccptableExeption")
+
 
 validations = {}
 
-exports.validateRequest = function (request, validationList) {
+exports.validateRequest = async function (request, validationList) {
     const errorList = await iterateAtributes(request,validationList)
 
     if (errorList.length > 0)
@@ -42,7 +44,7 @@ function iterateAtributes (request, atributeList) {
             }
         }
         if (atributeHaveErrors(AtributeErrors[atributeName]))
-        atributesWithErros.push(AtributeErrors)
+            atributesWithErros.push(AtributeErrors)
     });
     return atributesWithErros
 }
@@ -50,7 +52,9 @@ function iterateAtributes (request, atributeList) {
 function iterateValidationList (validationList, atributeValue) {
     const errorsInAtribute = []
     validationList.forEach(atribute => {
-        errorsInAtribute.push(executeValidation(atribute, atributeValue))
+        const validationError = executeValidation(atribute, atributeValue)
+        if(validationError)
+            errorsInAtribute.push(validationError)
     })
     return errorsInAtribute
 }
@@ -64,7 +68,7 @@ function extractValidationInformation (validation) {
     const validationData = validation.split(':')
     return {
         validationName: validationData[0],
-        validationParams: extractValidationParams(validationData[1])
+        validationParams: extractValidationParams(validationData[1]) || []
     }
 }
 
@@ -74,7 +78,8 @@ function executeValidation (atribute, atributeValue) {
 }
 
 function extractValidationParams (stringParams) {
-    return stringParams.split(',')
+    if(stringParams)
+        return stringParams.split(',')
 }
 
 function haveAtributeInRequest(request, paramName) {
@@ -144,13 +149,20 @@ function maxValue (value, maxValue) {
 }
 
 function equal (value, equalValue) {
-    return value === equalValue
+    return value == equalValue
 }
 
 validations.size = function size (value, size) {
-    if (value === size)
+    if(isString(value))
+        return sizeArray(value, size)
+}
+
+function sizeArray (array, size) {
+    if(!equal(array.length, size))
         return `deve ter tamanho ${size}`
 }
+
+
 
 function type (value, expectedType) {
     return typeof(value) == expectedType
@@ -197,7 +209,7 @@ validations.email = function email (value) {
         return 'formato de email invalido'
 }
 
-function isValidEmail() {
+function isValidEmail(value) {
     const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
     return emailRegex.test(value)
 }
