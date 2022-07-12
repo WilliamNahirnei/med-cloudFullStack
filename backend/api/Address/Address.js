@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 const database = require('../../database/database.js')
  
 const Address = database.define('Address', {
@@ -47,4 +47,4 @@ const Address = database.define('Address', {
     },
 })
  
-module.exports = Address;
+module.exports = Address
