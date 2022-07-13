@@ -9,21 +9,19 @@ import Nav from "./Components/BasicComponents/Nav"
 
 export default function App() {
   return (
-    <react-fragment>
-      <body>
-        <div className='row m-3'>
-          <div className="col-2">
-            <Nav />
-          </div>
-          <div className="col-10">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/pacientes" element={<PatientsPage />} />
-              <Route path="/pacientes/novo" element={<StorePatientPage />} />
-            </Routes>
-          </div>
+    <div>
+      <div className='row m-3'>
+        <div className="col-2">
+          <Nav />
         </div>
-      </body>
-    </react-fragment>
+        <div className="col-10">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/pacientes" element={<PatientsPage />} />
+            <Route path="/pacientes/novo" element={<StorePatientPage />} />
+          </Routes>
+        </div>
+      </div>
+    </div>
   );
 }
