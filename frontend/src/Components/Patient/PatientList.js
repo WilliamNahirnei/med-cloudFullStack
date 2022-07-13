@@ -1,15 +1,27 @@
-import React from "react"
+import React, { useState, useEffect } from 'react';
 
-import PatientLine from "../../Pages/PatientLine"
+import PatientLine from "./PatientLine"
 
-const patientList = [
-    {id:1, name:"William n lopes",CPF:"11111111111"},
-    {id:1, name:"William n lopes",CPF:"22222222222"}
-]
+import { getPatients } from '../../api/patient-api'
 
 export default function PatientsList() {
+    const [patientList, setPatientList] = useState([])
+    
+    useEffect(() => {
+        searchPatients()
+      }, []);
+    
+    async function searchPatients () {
+        console.log("buscado")
+        const patientsData = await getPatients()
+        setPatientList(patientsData.patients)
+    }
+
     return (
         <div>
+            <button type="button" className="btn btn-primary">
+                Cadastrar
+            </button>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -19,7 +31,7 @@ export default function PatientsList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {patientList.map((patient) => <PatientLine key={patient.id} patient={patient} />)}
+                    {patientList.map((patient) => <PatientLine key={patient.idPatient} patient={patient} searchPatients={searchPatients} />)}
                 </tbody>
             </table>
         </div>

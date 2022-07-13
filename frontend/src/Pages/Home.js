@@ -1,9 +1,12 @@
 import React from "react"
 
-export default function Home() {
+import PatientsList from "../Components/Patient/PatientList"
+
+export default function PatientsPage() {
     return (
-        <div>
-            <h1>HOME</h1>
+        <div className="card">
+            <h1>Pacientes</h1>
+            <PatientsList />
         </div>
     )
 }
