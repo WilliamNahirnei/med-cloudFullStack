@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom"
+
 
 import PatientLine from "./PatientLine"
 
@@ -12,16 +14,17 @@ export default function PatientsList() {
       }, []);
     
     async function searchPatients () {
-        console.log("buscado")
         const patientsData = await getPatients()
         setPatientList(patientsData.patients)
     }
 
     return (
         <div>
-            <button type="button" className="btn btn-primary">
-                Cadastrar
-            </button>
+            <Link className="btin btn-primary" to="/pacientes/novo">
+                <button type="button" className="btn btn-primary">
+                    Cadastrar
+                </button>
+            </Link>
             <table className="table table-striped">
                 <thead>
                     <tr>

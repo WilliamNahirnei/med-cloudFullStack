@@ -1,12 +1,9 @@
 import React from "react"
 
-import PatientsList from "../Components/Patient/PatientList"
-
-export default function PatientsPage() {
+export default function Home() {
     return (
-        <div className="card">
-            <h1>Pacientes</h1>
-            <PatientsList />
+        <div>
+            <h1>HOME</h1>
         </div>
     )
 }
