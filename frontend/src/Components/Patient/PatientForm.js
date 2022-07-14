@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function PatientForm() {
+import { getPatient, storePatient, updatePatient } from '../../api/patient-api'
+
+export default function PatientForm(props) {
+
+    const idPatient = props.idPatient
+    const formType = props.type
 
     const [patientData, setPatientData] = useState(
         {
@@ -8,7 +13,7 @@ export default function PatientForm() {
             birthDate: "",
             CPF: "",
             email: "",
-    
+
             number:"",
             observation: "",
             street: "",
@@ -21,17 +26,44 @@ export default function PatientForm() {
 
     function changePatientData (event) {
         const { id, value } = event.target;
-        console.log(id, value)
         setPatientData(prevState => ({
             ...prevState,
             [id]: value
         }));
     };
 
+    useEffect(() => {
+        if (isEditForm())
+            functionLoadPatientData(idPatient)
+      }, []);
+
+    async function functionLoadPatientData (idPatient) {
+        const response = await getPatient(idPatient)
+        const patientData = {
+            fullName: response.patient.PatientFullName,
+            CPF: response.patient.PatientCPF,
+            email: response.patient.PatientEmail,
+            birthDate: response.patient.PatientBirthDate,
+        }
+        setPatientData(patientData)
+    }
+
     function submitForm(event) {
         event.preventDefault();
-        console.log ("here")
+        savePatient(patientData)
     }
+
+    async function savePatient (patientData) {
+        if (isEditForm())
+            await updatePatient(idPatient, patientData)
+        else
+            await storePatient(patientData)
+    }
+
+    function isEditForm () {
+        return formType == 'edition'
+    }
+
     return (
         <div className="m-3">
             <form onSubmit={submitForm}>
@@ -41,7 +73,7 @@ export default function PatientForm() {
                 </div>
                 <div className="m-3">
                     <label className="form-label">CPF</label>
-                    <input type="text" className="form-control" id="cpf" placeholder="CPF" value={patientData.CPF} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="CPF" placeholder="CPF" value={patientData.CPF} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">e-mail</label>
@@ -53,31 +85,31 @@ export default function PatientForm() {
                 </div>
                 <div className="m-3">
                     <label className="form-label">Rua</label>
-                    <input type="text" className="form-control" id="street" value={patientData.street} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="street" placeholder="Rua central" value={patientData.street} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Numero</label>
-                    <input type="text" className="form-control" id="number" value={patientData.number} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="number" placeholder="230" value={patientData.number} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Bairro</label>
-                    <input type="text" className="form-control" id="street" value={patientData.neighborhood} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="neighborhood" placeholder="centro" value={patientData.neighborhood} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Observação</label>
-                    <input type="text" className="form-control" id="observation" value={patientData.observation} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="observation" placeholder="predio 2" value={patientData.observation} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Cidade</label>
-                    <input type="text" className="form-control" id="city" value={patientData.city} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="city" placeholder="São Paulo" value={patientData.city} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Estado</label>
-                    <input type="text" className="form-control" id="state" value={patientData.state} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="state" placeholder="Minas Gerais" value={patientData.state} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <label className="form-label">Pais</label>
-                    <input type="text" className="form-control" id="country" value={patientData.country} onChange={changePatientData} />
+                    <input type="text" className="form-control" id="country" placeholder="Brasil" value={patientData.country} onChange={changePatientData} />
                 </div>
                 <div className="m-3">
                     <input type="submit" className="form-control" id="sendData"/>

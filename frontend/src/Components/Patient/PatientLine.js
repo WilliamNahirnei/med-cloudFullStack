@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { AiFillEdit, AiFillEye, } from "react-icons/ai";
 import { BsFillTrashFill } from 'react-icons/bs'
 
@@ -24,7 +25,11 @@ export default function PatientLine(props) {
                         <AiFillEye />
                     </div>
                     <div className="col-4">
-                        <AiFillEdit />
+                        <Link className="btin btn-primary" to={`/pacientes/editar/${patient.idPatient}`}>
+                            <button type="button" className="btn btn-primary">
+                                <AiFillEdit />
+                            </button>
+                        </Link>
                     </div>
                     <div className="col-4">
                         <button type="button" className="btn btn-danger" onClick={callDeletePatient}>
