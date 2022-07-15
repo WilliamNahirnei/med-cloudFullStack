@@ -22,7 +22,11 @@ export default function PatientLine(props) {
             <td>
                 <div className="row">
                     <div className="col-4">
-                        <AiFillEye />
+                        <Link className="btin btn-primary" to={`/pacientes/${patient.idPatient}`}>
+                            <button type="button" className="btn btn-success">
+                                <AiFillEye />
+                            </button>
+                        </Link>
                     </div>
                     <div className="col-4">
                         <Link className="btin btn-primary" to={`/pacientes/editar/${patient.idPatient}`}>
