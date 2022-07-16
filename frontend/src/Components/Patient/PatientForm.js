@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { getPatient, storePatient, updatePatient } from '../../api/patient-api'
 
@@ -32,10 +32,14 @@ export default function PatientForm(props) {
         }));
     };
 
+    const isEditForm = useCallback( () => {
+        return formType === 'edition'
+    }, [formType])
+
     useEffect(() => {
         if (isEditForm())
             functionLoadPatientData(idPatient)
-      }, []);
+      }, [isEditForm, idPatient]);
 
     async function functionLoadPatientData (idPatient) {
         const response = await getPatient(idPatient)
@@ -58,10 +62,6 @@ export default function PatientForm(props) {
             await updatePatient(idPatient, patientData)
         else
             await storePatient(patientData)
-    }
-
-    function isEditForm () {
-        return formType == 'edition'
     }
 
     return (

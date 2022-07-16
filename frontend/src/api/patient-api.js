@@ -47,3 +47,22 @@ export const deletePatient = async (idPatient) => {
     throw new Error(e)
   }
 }
+
+export const deactivePatient = async (idPatient) => {
+  try {
+    const url = `${basicPatientUrl}/${idPatient}/deactive`
+    const { data } = await destroy(url)
+    return data
+  } catch (e) {
+    throw new Error(e)
+  }
+}
+
+export const activePatient = async (idPatient) => {
+  try {
+    const { data } = await put(`${basicPatientUrl}/${idPatient}/active`)
+    return data
+  } catch (e) {
+    throw new Error(e)
+  }
+}
