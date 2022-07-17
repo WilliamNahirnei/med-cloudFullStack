@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import { useSnackbar } from "notistack";
+
 import { getPatient, storePatient, updatePatient } from '../../api/patient-api'
 
 export default function PatientForm(props) {
@@ -7,6 +9,7 @@ export default function PatientForm(props) {
     const idPatient = props.idPatient
     const formType = props.type
 
+    const { enqueueSnackbar } = useSnackbar();
     const [patientData, setPatientData] = useState(
         {
             fullName: "",
@@ -42,14 +45,23 @@ export default function PatientForm(props) {
       }, [isEditForm, idPatient]);
 
     async function functionLoadPatientData (idPatient) {
-        const response = await getPatient(idPatient)
-        const patientData = {
-            fullName: response.patient.PatientFullName,
-            CPF: response.patient.PatientCPF,
-            email: response.patient.PatientEmail,
-            birthDate: response.patient.PatientBirthDate,
+        try{
+            const response = await getPatient(idPatient)
+            const patientData = {
+                fullName: response.patient.PatientFullName,
+                CPF: response.patient.PatientCPF,
+                email: response.patient.PatientEmail,
+                birthDate: response.patient.PatientBirthDate,
+            }
+            setPatientData(patientData)
+        } catch (e) {
+            if (e?.response?.data?.messages?.length > 0) {
+                e?.response?.data?.messages?.forEach(message => {
+                    negativeNotify(`Erro ao buscar dados do paciente. ${message}`)
+                });
+            } else
+                negativeNotify('Erro ao buscar dados do paciente')
         }
-        setPatientData(patientData)
     }
 
     function submitForm(event) {
@@ -58,11 +70,38 @@ export default function PatientForm(props) {
     }
 
     async function savePatient (patientData) {
-        if (isEditForm())
-            await updatePatient(idPatient, patientData)
-        else
-            await storePatient(patientData)
+        try{
+            if (isEditForm()){
+                await updatePatient(idPatient, patientData)
+                positiveNotify("Paciente salvo com sucesso")
+            }
+            else{
+                await storePatient(patientData)
+                positiveNotify("Paciente salvo com sucesso")
+            }
+        } catch (e) {
+            if (e?.response?.data?.messages?.length > 0) {
+                e?.response?.data?.messages?.forEach(message => {
+                    negativeNotify(message)
+                });
+            } else
+                negativeNotify("Erro ao salvar paciente")
+        }
     }
+
+    const positiveNotify = (message) => {
+        enqueueSnackbar(message, {
+          variant: "success",
+          autoHideDuration: 5000
+        });
+    };
+
+    const negativeNotify = (errorMessage = '') => {
+        enqueueSnackbar(errorMessage, {
+            variant: "error",
+            autoHideDuration: 5000
+        });
+    };
 
     return (
         <div className="m-3">

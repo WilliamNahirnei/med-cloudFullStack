@@ -1,11 +1,12 @@
 import React, { useEffect, useState, } from 'react';
 import PatientStatus from "./PatientStatus"
 import { getPatient } from '../../api/patient-api'
+import { useSnackbar } from "notistack";
 
 export default function PatientDataForm(props) {
     const idPatient = props.idPatient
 
-
+    const { enqueueSnackbar } = useSnackbar();
     const [patientData, setPatientData] = useState(
         {
             fullName: "",
@@ -29,16 +30,33 @@ export default function PatientDataForm(props) {
       }, [idPatient]);
 
     async function loadPatientData (idPatient) {
-        const response = await getPatient(idPatient)
-        const patientData = {
-            fullName: response.patient.PatientFullName,
-            CPF: response.patient.PatientCPF,
-            email: response.patient.PatientEmail,
-            birthDate: response.patient.PatientBirthDate,
-            status: response.patient.PatientStatus
+        try {
+            const response = await getPatient(idPatient)
+            const patientData = {
+                fullName: response.patient.PatientFullName,
+                CPF: response.patient.PatientCPF,
+                email: response.patient.PatientEmail,
+                birthDate: response.patient.PatientBirthDate,
+                status: response.patient.PatientStatus
+            }
+            setPatientData(patientData)
         }
-        setPatientData(patientData)
+        catch (e) {
+            if (e?.response?.data?.messages?.length > 0) {
+                e?.response?.data?.messages?.forEach(message => {
+                    negativeNotify(message)
+                });
+            } else
+                negativeNotify()
+        }
     }
+
+    const negativeNotify = (errorMessage = '') => {
+        enqueueSnackbar(`Erro ao buscar paciente. ${errorMessage}`, {
+            variant: "error",
+            autoHideDuration: 5000
+        });
+    };
 
     return (
         <div className="row m-3">

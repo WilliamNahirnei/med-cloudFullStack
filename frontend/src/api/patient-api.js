@@ -7,7 +7,7 @@ export const getPatients = async () => {
       const { data } = await get(basicPatientUrl)
       return data
     } catch (e) {
-      throw new Error(e)
+      throw e
     }
 }
 
@@ -16,7 +16,7 @@ export const getPatient = async (idPatient) => {
     const { data } = await get(`${basicPatientUrl}/${idPatient}`)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }
 
@@ -25,7 +25,7 @@ export const storePatient = async (patientData) => {
     const { data } = await post(basicPatientUrl, patientData)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }
 
@@ -34,7 +34,7 @@ export const updatePatient = async (idPatient, patientData) => {
     const { data } = await put(`${basicPatientUrl}/${idPatient}`, patientData)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }
 
@@ -44,7 +44,7 @@ export const deletePatient = async (idPatient) => {
     const { data } = await destroy(url)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }
 
@@ -54,7 +54,7 @@ export const deactivePatient = async (idPatient) => {
     const { data } = await destroy(url)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }
 
@@ -63,6 +63,6 @@ export const activePatient = async (idPatient) => {
     const { data } = await put(`${basicPatientUrl}/${idPatient}/active`)
     return data
   } catch (e) {
-    throw new Error(e)
+    throw e
   }
 }

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { AiFillEdit, AiFillEye, } from "react-icons/ai";
 import { BsFillTrashFill } from 'react-icons/bs'
 
+import DeletePatient from './DeletePatient'
+
 import { deletePatient } from '../../api/patient-api'
 
 export default function PatientLine(props) {
@@ -36,9 +38,10 @@ export default function PatientLine(props) {
                         </Link>
                     </div>
                     <div className="col-4">
-                        <button type="button" className="btn btn-danger" onClick={callDeletePatient}>
+                        {/* <button type="button" className="btn btn-danger" onClick={callDeletePatient}>
                             <BsFillTrashFill />
-                        </button>
+                        </button> */}
+                        <DeletePatient idPatient={patient.idPatient} searchPatients={searchPatients} />
                     </div>
                 </div>
             </td>

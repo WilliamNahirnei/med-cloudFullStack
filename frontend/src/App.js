@@ -1,5 +1,6 @@
 import Nav from "./Components/BasicComponents/Nav"
 import NavigarionList from "./NavigarionList";
+import { SnackbarProvider } from 'notistack';
 
 export default function App() {
   return (
@@ -9,7 +10,9 @@ export default function App() {
           <Nav />
         </div>
         <div className="col-10">
-          <NavigarionList />
+          <SnackbarProvider >
+            <NavigarionList />
+          </SnackbarProvider>
         </div>
       </div>
     </div>
