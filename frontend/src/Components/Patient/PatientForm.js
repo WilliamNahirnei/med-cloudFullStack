@@ -82,7 +82,17 @@ export default function PatientForm(props) {
         } catch (e) {
             if (e?.response?.data?.messages?.length > 0) {
                 e?.response?.data?.messages?.forEach(message => {
-                    negativeNotify(message)
+                    if(e?.response?.status == 422){
+                        const messageList = mountValidationsMessages(message)
+                        
+                        messageList.forEach((message) => {
+                            negativeNotify(message)
+                        })
+                    } else {
+                        e?.response?.data?.messages?.forEach(message => {
+                            negativeNotify(message)
+                        });
+                    }
                 });
             } else
                 negativeNotify("Erro ao salvar paciente")
@@ -102,6 +112,18 @@ export default function PatientForm(props) {
             autoHideDuration: 5000
         });
     };
+
+    function mountValidationsMessages (validationError) {
+        const attributes = Object.keys(validationError)
+
+        const messageList = []
+        attributes.forEach((attribute) => {
+            validationError[attribute].forEach((message) => {
+                messageList.push(`${attribute} ${message}`)
+            })
+        })
+        return messageList
+    }
 
     return (
         <div className="m-3">

@@ -47,7 +47,7 @@ export default function PatientDataForm(props) {
                     negativeNotify(message)
                 });
             } else
-                negativeNotify()
+                negativeNotify("Erro ao buscar dados do paciente")
         }
     }
 

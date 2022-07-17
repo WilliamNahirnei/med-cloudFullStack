@@ -10,7 +10,7 @@ export default function App() {
           <Nav />
         </div>
         <div className="col-10">
-          <SnackbarProvider >
+          <SnackbarProvider maxSnack={20}>
             <NavigarionList />
           </SnackbarProvider>
         </div>

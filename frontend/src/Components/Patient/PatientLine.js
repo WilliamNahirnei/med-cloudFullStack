@@ -1,20 +1,12 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { AiFillEdit, AiFillEye, } from "react-icons/ai";
-import { BsFillTrashFill } from 'react-icons/bs'
 
 import DeletePatient from './DeletePatient'
-
-import { deletePatient } from '../../api/patient-api'
 
 export default function PatientLine(props) {
     const patient = props.patient
     const searchPatients = props.searchPatients
-
-    async function callDeletePatient() {
-        await deletePatient(patient.idPatient)
-        searchPatients()
-    }
 
     return (
         <tr>
@@ -38,9 +30,6 @@ export default function PatientLine(props) {
                         </Link>
                     </div>
                     <div className="col-4">
-                        {/* <button type="button" className="btn btn-danger" onClick={callDeletePatient}>
-                            <BsFillTrashFill />
-                        </button> */}
                         <DeletePatient idPatient={patient.idPatient} searchPatients={searchPatients} />
                     </div>
                 </div>

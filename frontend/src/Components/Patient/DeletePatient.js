@@ -29,7 +29,7 @@ export default function DeletePatient(props) {
     async function callDeletePatient() {
         handleClose()
         try{
-            const teste = await deletePatient(idPatient)
+            await deletePatient(idPatient)
             positiveNotify()
             searchPatients()
         } catch(e) {
@@ -38,7 +38,7 @@ export default function DeletePatient(props) {
                     negativeNotify(message)
                 });
             } else
-                negativeNotify('')
+                negativeNotify('Erro ao deletar paciente')
         }
     }
 
