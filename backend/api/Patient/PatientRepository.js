@@ -6,7 +6,13 @@ exports.index = async function () {
 }
 
 exports.show = async function (idPatient) {
-    return await Patient.findByPk(idPatient)
+    return await Patient.findByPk(idPatient, {
+        include: [
+            {
+                model: Address
+            }
+        ]
+    })
 }
 
 exports.store = async function (patientData, options = null) {

@@ -43,5 +43,8 @@ const Patient = database.define('Patient', {
         }
     }
 })
+Patient.belongsTo(Address, {
+    foreignKey: 'address_id'
+  });
 
 module.exports = Patient
