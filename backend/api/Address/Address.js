@@ -45,6 +45,7 @@ const Address = database.define('Address', {
         unique: false,
         defaultValue: 'Brasil'
     },
-})
+},
+{tableName: 'Address',})
  
 module.exports = Address

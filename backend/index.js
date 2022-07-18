@@ -7,7 +7,7 @@ const port = process.env.API_PORT
 
 const SynchronizeDatabase = require('./database/DatabaseSynchronization')
 
-SynchronizeDatabase()
+//SynchronizeDatabase()
 consign()
     .then('/config/middlewares.js')
     .then('routes.js')

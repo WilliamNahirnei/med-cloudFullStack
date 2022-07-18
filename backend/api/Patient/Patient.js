@@ -42,7 +42,7 @@ const Patient = database.define('Patient', {
             key: 'idAddress'
         }
     }
-})
+},{tableName: 'Patient',})
 Patient.belongsTo(Address, {
     foreignKey: 'address_id'
   });

@@ -6,13 +6,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-backend
-    command: npm start
+    command: sh -c "npm i && npm start"
     ports: 
       - '3000:3000'
     volumes: 
       - ./backend/:/usr/app
     depends_on:
       - "medcloud-db"
+
+  medcloud-front:
+    container_name: 'medcloud-frontend'
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    command: sh -c "npm i && npm start"
+    ports: 
+      - '3005:3005'
+    volumes: 
+      - ./frontend/:/usr/app
 
   medcloud-db:
     container_name: 'medcloud-db'
