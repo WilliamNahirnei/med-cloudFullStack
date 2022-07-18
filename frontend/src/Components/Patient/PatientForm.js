@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from "notistack";
 
 import { getPatient, storePatient, updatePatient } from '../../api/patient-api'
 
 export default function PatientForm(props) {
 
+    const navigate = useNavigate()
     const idPatient = props.idPatient
     const formType = props.type
 
@@ -82,10 +83,12 @@ export default function PatientForm(props) {
             if (isEditForm()){
                 await updatePatient(idPatient, patientData)
                 positiveNotify("Paciente salvo com sucesso")
+                navigate(`/pacientes/${idPatient}`)
             }
             else{
-                await storePatient(patientData)
+                const patient = await storePatient(patientData)
                 positiveNotify("Paciente salvo com sucesso")
+                navigate(`/pacientes/${patient.idPatient}`)
             }
         } catch (e) {
             if (e?.response?.data?.messages?.length > 0) {
