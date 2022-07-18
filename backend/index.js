@@ -5,9 +5,6 @@ const consign = require('consign')
 const app = express()
 const port = process.env.API_PORT
 
-const SynchronizeDatabase = require('./database/DatabaseSynchronization')
-
-//SynchronizeDatabase()
 consign()
     .then('/config/middlewares.js')
     .then('routes.js')
