@@ -1,12 +1,12 @@
 # Ler todos os pontos adicionados.
-#Setup
+# Setup
   Tenha o docker e docker-compose instalados na maquina.
   execute o arquivo setup-loca.sh que o setup sera feito automaticamente.
   na pasta raiz execute o comando docker-compose up, a api esta rodando na porta 300, o frontend esta rodando na porta 3005.
   
   Caso opte por fazer o setup manualmente, abra o arquivo setup-local.sh e execute comando a comando no cmd.
   
-#Caso não utilize docker
+# Caso não utilize docker
   Copie os arquivos .env.example para .env, nas pastas frontend e backend.
   Configure-os com os dados corretamente.
   Crie um banco de dados.
@@ -15,14 +15,14 @@
   Dentro da pasta backend rode o comando : npx sequelize-cli db:migrate
   Caso tenha erro com o sequelize-cli, instale globalmente, e rode o comando : npx sequelize-cli db:migrate dentro da pasta backend.
  
-#Considerações
+# Considerações
   O sistema foi desenvolvido utilizando node js, com a lib express, banco de dados mysql, e react no frontend.
   Devido a não possuir cartão de credito, não foi utilizado os serviços da amazon.
   Não foram armazenados quaisquer dados no navegador pois não achou-se nescessario.
   O sistema foi desenvolvido em containers do docker para facilitar o versionamento de tecnoligas na maquina, sem ter as respectivas tecnologias instaladas somente o docker.
   As validações em backend foram desenvolvidas do zero, quais ja estavam sendo desenvolvidas antes do inicio do projeto, e foram finalizadas em uma primeira versão para a utilização no mesmo.
 
-#Melhorias
+# Melhorias
   frontend:
     - Migrar toda a estrutura de componentes simples do react com utilização de classes boostrap para styled components do Material ui.
     - Melhorar posicionamento das interfaces, adicionar espaçamentos entre componentes em alguns locais.
