@@ -7,11 +7,10 @@ exports.index = async function (request, response) {
         const patientList = await PatientSerivce.index(request)
         response.send(patientList)
     } catch (error) {
-        console.log(error)
         if (error?.codeForRequest)
             response.status(error.codeForRequest).send({error:error.type, messages:error.errorListMessage})
         else
-            response.status(500).send({messages:['internal server error'], teste:error})
+            response.status(500).send({messages:['internal server error']})
     }
 }
 
@@ -20,11 +19,10 @@ exports.show = async function (request, response) {
         const patient = await PatientSerivce.show(request, response)
         response.send(patient)
     } catch (error) {
-        console.log(error)
         if (error?.codeForRequest)
             response.status(error.codeForRequest).send({error:error.type, messages:error.errorListMessage})
         else
-            response.status(500).send({messages:['internal server error'], teste:error})
+            response.status(500).send({messages:['internal server error']})
     }
 }
 
@@ -37,7 +35,7 @@ exports.store = async function (request, response) {
         if (error?.codeForRequest)
             response.status(error.codeForRequest).send({error:error.type, messages:error.errorListMessage})
         else
-            response.status(500).send({messages:['internal server error'], teste:error})
+            response.status(500).send({messages:['internal server error']})
     }
 }
 

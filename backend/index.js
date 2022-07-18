@@ -7,11 +7,11 @@ const port = process.env.API_PORT
 
 const SynchronizeDatabase = require('./database/DatabaseSynchronization')
 
+SynchronizeDatabase()
 consign()
     .then('/config/middlewares.js')
     .then('routes.js')
     .into(app)
-SynchronizeDatabase()
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`)
