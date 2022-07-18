@@ -37,7 +37,15 @@ export default function PatientDataForm(props) {
                 CPF: response.patient.PatientCPF,
                 email: response.patient.PatientEmail,
                 birthDate: response.patient.PatientBirthDate,
-                status: response.patient.PatientStatus
+                status: response.patient.PatientStatus,
+
+                number: response.patient.Address.Number,
+                observation: response.patient.Address.Observation,
+                street: response.patient.Address.Street,
+                neighborhood: response.patient.Address.Neighborhood,
+                city: response.patient.Address.City,
+                state: response.patient.Address.State,
+                country: response.patient.Address.Country
             }
             setPatientData(patientData)
         }
@@ -89,35 +97,35 @@ export default function PatientDataForm(props) {
                 <div className="row">
                     <div className="col-6">
                         <div className="row"><h6>Rua: </h6></div>
-                        <div className="row"><span>Alzemiro delgado</span></div>
+                        <div className="row"><span>{patientData.street}</span></div>
                     </div>
                     <div className="col-6">
                         <div className="row"><h6>Numero:</h6></div>
-                        <span>1314</span>
+                        <span>{patientData.number}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-6">
                         <div className="row"><h6>Observação: </h6></div>
-                        <div className="row"><span>Perto de abcd</span></div>
+                        <div className="row"><span>{patientData.observation}</span></div>
                     </div>
                     <div className="col-6">
                         <div className="row"><h6>Bairro: </h6></div>
-                        <span>Boqueirão</span>
+                        <span>{patientData.neighborhood}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-6">
                         <div className="row"><h6>Cidade: </h6></div>
-                        <div className="row"><span>Guarapuava</span></div>
+                        <div className="row"><span>{patientData.city}</span></div>
                     </div>
                     <div className="col-6">
                         <div className="row"><h6>Estado: </h6></div>
-                        <span>Paraná</span>
+                        <span>{patientData.state}</span>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="row"><h6>País</h6></div>
+                    <div className="row"><h6>{patientData.country}</h6></div>
                     <span>Brasil</span>
                 </div>
             </div>

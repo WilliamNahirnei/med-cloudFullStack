@@ -52,6 +52,14 @@ export default function PatientForm(props) {
                 CPF: response.patient.PatientCPF,
                 email: response.patient.PatientEmail,
                 birthDate: response.patient.PatientBirthDate,
+
+                number: response.patient.Address.Number,
+                observation: response.patient.Address.Observation,
+                street: response.patient.Address.Street,
+                neighborhood: response.patient.Address.Neighborhood,
+                city: response.patient.Address.City,
+                state: response.patient.Address.State,
+                country: response.patient.Address.Country
             }
             setPatientData(patientData)
         } catch (e) {
