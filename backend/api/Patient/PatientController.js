@@ -35,7 +35,7 @@ exports.store = async function (request, response) {
         if (error?.codeForRequest)
             response.status(error.codeForRequest).send({error:error.type, messages:error.errorListMessage})
         else
-            response.status(500).send({messages:['internal server error'], teste:error})
+            response.status(500).send({messages:['internal server error']})
     }
 }
 
